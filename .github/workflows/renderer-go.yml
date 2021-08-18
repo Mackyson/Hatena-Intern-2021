@@ -1,9 +1,6 @@
 name: Test renderer-go
 
 on: [pull_request]
-  paths:
-    - .github/workflows/renderer-go.yml
-    - services/renderer-go/**
 
 jobs:
   build:
