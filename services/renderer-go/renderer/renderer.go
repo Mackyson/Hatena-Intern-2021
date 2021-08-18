@@ -8,7 +8,7 @@ import (
 )
 
 // Render は受け取った文書を HTML に変換する
-func Render(ctx context.Context, src string) (string, error) {
+unc Render(ctx context.Context, src string) (string, error) {
 	var html bytes.Buffer
 	err := goldmark.Convert([]byte(src), &html)
 	return html.String(), err
