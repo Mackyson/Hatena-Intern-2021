@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-unc Test_Render(t *testing.T) {
+func Test_Render(t *testing.T) {
 	tests := []struct {
 		src    string
 		expect string
