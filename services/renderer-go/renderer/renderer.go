@@ -3,23 +3,16 @@ package renderer
 import (
 	"bytes"
 	"context"
-	"html/template"
-	"regexp"
-)
 
-var urlRE = regexp.MustCompile(`https?://[^\s]+`)
-var linkTmpl = template.Must(template.New("link").Parse(`<a href="{{.}}">{{.}}</a>`))
+	"github.com/yuin/goldmark"
+)
 
 // Render は受け取った文書を HTML に変換する
 func Render(ctx context.Context, src string) (string, error) {
-	// TODO: これはサンプル実装 (URL の自動リンク) です
-	html := urlRE.ReplaceAllStringFunc(src, func(url string) string {
-		var w bytes.Buffer
-		err := linkTmpl.ExecuteTemplate(&w, "link", url)
-		if err != nil {
-			return url
-		}
-		return w.String()
-	})
-	return html, nil
+	var html bytes.Buffer
+	err := goldmark.Convert([]byte(src), &html)
+	if err != nil {
+		panic(err) //TODO ハンドリング
+	}
+	return html.String(), nil
 }
