@@ -1,11 +1,9 @@
 name: Test renderer-go
 
-on:
-  pull_request:
-    branchs: [ main ]
-    paths:
-      - .github/workflows/renderer-go.yml
-      - services/renderer-go/**
+on: [pull_request]
+  paths:
+    - .github/workflows/renderer-go.yml
+    - services/renderer-go/**
 
 jobs:
   build:
@@ -19,8 +17,6 @@ jobs:
       id: go
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
     - uses: golangci/golangci-lint-action@v2
       with:
         working-directory: services/renderer-go
