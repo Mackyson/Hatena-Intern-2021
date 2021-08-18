@@ -11,8 +11,5 @@ import (
 func Render(ctx context.Context, src string) (string, error) {
 	var html bytes.Buffer
 	err := goldmark.Convert([]byte(src), &html)
-	if err != nil {
-		panic(err) //TODO ハンドリング
-	}
-	return html.String(), nil
+	return html.String(), err
 }
