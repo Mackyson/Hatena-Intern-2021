@@ -1,4 +1,4 @@
-module github.com/hatena/Hatena-Intern-2021/services/renderer-go
+module github.com/hatena/Hatena-Intern-2021/services/fetcher
 
 go 1.14
 
