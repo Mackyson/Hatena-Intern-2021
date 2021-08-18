@@ -58,6 +58,18 @@ docker run -v "$(pwd):/pb" -w /pb --rm hatena-intern-2021-protoc-ts \
     --ts_out=grpc_js:ts/health-check \
     health-check.proto
 
+mkdir -p go/fetcher
+docker run -v "$(pwd):/pb" -w /pb --rm hatena-intern-2021-protoc-go \
+  protoc \
+    --go_out=go/fetcher \
+    --go_opt=paths=source_relative \
+    --go-grpc_out=go/fetcher \
+    --go-grpc_opt=paths=source_relative \
+    fetcher.proto
+mkdir -p ../services/fetcher
+cp -r ./go/fetcher ../services/fetcher/pb
+cp -r ./go/fetcher ../services/blog/pb
+
 # health-check は grpc-js-health-probe の型定義の参考にするだけで直接は使わないのでコピーしていない
 # mkdir -p ../services/renderer-ts/pb
 # cp -r ./ts/health-check ../services/renderer-ts/pb
