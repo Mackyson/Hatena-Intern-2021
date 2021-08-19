@@ -37,5 +37,5 @@ phases:
     # skaffold 実行
     - skaffold run --cleanup=false --kube-context arn:aws:eks:ap-northeast-1:391241245592:cluster/eksworkshop-eksctl
     - printf '[{"name":"artifact", "body":"success"}]' > build.json
-  artifact:
-    files: build.json
+artifacts:
+  files: build.json
