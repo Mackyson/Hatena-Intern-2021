@@ -18,7 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FetcherClient interface {
-	Fetcher(ctx context.Context, in *FetcherRequest, opts ...grpc.CallOption) (*FetcherReply, error)
+	Fetch(ctx context.Context, in *FetchRequest, opts ...grpc.CallOption) (*FetchReply, error)
 }
 
 type fetcherClient struct {
@@ -29,9 +29,9 @@ func NewFetcherClient(cc grpc.ClientConnInterface) FetcherClient {
 	return &fetcherClient{cc}
 }
 
-func (c *fetcherClient) Fetcher(ctx context.Context, in *FetcherRequest, opts ...grpc.CallOption) (*FetcherReply, error) {
-	out := new(FetcherReply)
-	err := c.cc.Invoke(ctx, "/fetcher.Fetcher/Fetcher", in, out, opts...)
+func (c *fetcherClient) Fetch(ctx context.Context, in *FetchRequest, opts ...grpc.CallOption) (*FetchReply, error) {
+	out := new(FetchReply)
+	err := c.cc.Invoke(ctx, "/fetcher.Fetcher/Fetch", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func (c *fetcherClient) Fetcher(ctx context.Context, in *FetcherRequest, opts ..
 // All implementations must embed UnimplementedFetcherServer
 // for forward compatibility
 type FetcherServer interface {
-	Fetcher(context.Context, *FetcherRequest) (*FetcherReply, error)
+	Fetch(context.Context, *FetchRequest) (*FetchReply, error)
 	mustEmbedUnimplementedFetcherServer()
 }
 
@@ -50,8 +50,8 @@ type FetcherServer interface {
 type UnimplementedFetcherServer struct {
 }
 
-func (UnimplementedFetcherServer) Fetcher(context.Context, *FetcherRequest) (*FetcherReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Fetcher not implemented")
+func (UnimplementedFetcherServer) Fetch(context.Context, *FetchRequest) (*FetchReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Fetch not implemented")
 }
 func (UnimplementedFetcherServer) mustEmbedUnimplementedFetcherServer() {}
 
@@ -66,20 +66,20 @@ func RegisterFetcherServer(s grpc.ServiceRegistrar, srv FetcherServer) {
 	s.RegisterService(&Fetcher_ServiceDesc, srv)
 }
 
-func _Fetcher_Fetcher_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FetcherRequest)
+func _Fetcher_Fetch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FetchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FetcherServer).Fetcher(ctx, in)
+		return srv.(FetcherServer).Fetch(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/fetcher.Fetcher/Fetcher",
+		FullMethod: "/fetcher.Fetcher/Fetch",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FetcherServer).Fetcher(ctx, req.(*FetcherRequest))
+		return srv.(FetcherServer).Fetch(ctx, req.(*FetchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -92,8 +92,8 @@ var Fetcher_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*FetcherServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Fetcher",
-			Handler:    _Fetcher_Fetcher_Handler,
+			MethodName: "Fetch",
+			Handler:    _Fetcher_Fetch_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

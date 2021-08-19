@@ -68,7 +68,7 @@ docker run -v "$(pwd):/pb" -w /pb --rm hatena-intern-2021-protoc-go \
     fetcher.proto
 mkdir -p ../services/fetcher
 cp -r ./go/fetcher ../services/fetcher/pb
-cp -r ./go/fetcher ../services/blog/pb
+cp -r ./go/fetcher ../services/render/pb
 
 # health-check は grpc-js-health-probe の型定義の参考にするだけで直接は使わないのでコピーしていない
 # mkdir -p ../services/renderer-ts/pb
