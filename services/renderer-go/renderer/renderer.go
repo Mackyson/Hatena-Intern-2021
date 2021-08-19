@@ -3,8 +3,6 @@ package renderer
 import (
 	"bytes"
 	"context"
-	"fmt"
-	"log"
 
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/ast"
@@ -20,17 +18,6 @@ var markdown = goldmark.New(
 		),
 	),
 )
-
-func main() {
-	src := []byte("# link samples\n" +
-		"[normal link](https://example.com)\n" +
-		"[](https://example.com)\n")
-	var buf bytes.Buffer
-	if err := markdown.Convert(src, &buf); err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%s\n", buf.String())
-}
 
 type autoTitleLinker struct {
 }
