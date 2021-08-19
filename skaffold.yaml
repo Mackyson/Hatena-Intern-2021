@@ -19,7 +19,7 @@ build:
   - image: hatena-intern-2021-renderer-go
     context: services/renderer-go
   local:
-    push: false
+    push: true
     useBuildkit: true
 deploy:
   statusCheckDeadlineSeconds: 180
