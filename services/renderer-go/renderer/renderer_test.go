@@ -13,6 +13,11 @@ func Test_Render(t *testing.T) {
 		expect string
 	}{
 		{
+			src: `[](https://example.com)`,
+			expect: `<p><a href="https://example.com">https://example.com</a></p>
+`,
+		},
+		{
 			src: "# hoge\n## fuga",
 			expect: `<h1>hoge</h1>
 <h2>fuga</h2>
