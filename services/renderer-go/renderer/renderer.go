@@ -22,14 +22,13 @@ var markdown = goldmark.New(
 type autoTitleLinker struct {
 }
 
-func (l *autoTitleLinker) Transform(node *ast.Document, reader text.Reader, pc parser.Context) error {
-	err := ast.Walk(node, func(node ast.Node, entering bool) (ast.WalkStatus, error) {
+func (l *autoTitleLinker) Transform(node *ast.Document, reader text.Reader, pc parser.Context) {
+	_ = ast.Walk(node, func(node ast.Node, entering bool) (ast.WalkStatus, error) {
 		if node, ok := node.(*ast.Link); ok && entering && node.ChildCount() == 0 {
 			node.AppendChild(node, ast.NewString([]byte(node.Destination)))
 		}
 		return ast.WalkContinue, nil
 	})
-	return err
 }
 
 // Render は受け取った文書を HTML に変換する
