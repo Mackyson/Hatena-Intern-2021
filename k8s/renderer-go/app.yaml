@@ -30,8 +30,8 @@ spec:
         tier: app
     spec:
       containers:
-      - image: hatena-intern-2021-renderer-go
-        imagePullPolicy: Never
+      - image: 391241245592.dkr.ecr.ap-northeast-1.amazonaws.com/hatena-intern-2021-renderer-go
+        # imagePullPolicy: Never
         name: renderer-go
         env:
         - name: GRPC_PORT
